@@ -1,2 +1,7 @@
 # CPS493-Fit-Tracker
-The final project for Spring 2024' Web-Programming class.
+The final project for Spring 2024's Web-Programming class.
+## What's the Goal?
+The end goal is a mobile-first fitness-tracker app with a client-server model.
+## Features
+- The ability to share workout and fitness habits with friends
+- An admin area to manage accounts and data
