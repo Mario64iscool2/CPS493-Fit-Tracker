@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Activity Feed</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script type="module">
+        import { createApp, ref } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        createApp({
+            setup() {
+                const newActivity = ref('New Activity')
+                return {
+                    newActivity
+                }
+            }
+        }).mount('#app')
+    </script>
+</head>
+<body>
+    <navbar class="navbar">
+        <div class="navbar-brand">
+            <a href="activity-feed.html" class="navbar-item">Home</a>
+        </div>
+    </navbar>
+    <section id="app">
+        <div class="panel">
+            <p class="panel-heading">
+                Add Activity
+            </p>
+            <div class="panel-block">
+                
+            </div>
+        </div>
+    </section>
+</body>
+</html>
