@@ -8,13 +8,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     <title>First Bulma Example</title>
 </head>
-<body >
+<body>
+  <div id="app">
+    <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+        createApp({          
+          setup() {
+          const message = ref("Hello Vue!")
+          const showAlert = ref(true)
+          const isMenuActive = ref(false)
+          return {
+              message, showAlert, isMenuActive
+            }
+          }
+        }
+      )
+    </script>
     <nav class="navbar is-primary">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
-            
               <img src="https://bulma.io/images/bulma-logo-white.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-            
           </a>
           <div class="navbar-burger" data-target="navMenuColorprimary-example">
             <span></span>
@@ -23,7 +36,7 @@
           </div>
         </div>
       
-        <div id="navMenuColorprimary-example" class="navbar-menu">
+        <div id="navMenuColorprimary-example" class="navbar-menu" :class="{ 'is-active': isMenuActive }">
           <div class="navbar-start">
             <a class="navbar-item" href="https://bulma.io/">
               Home
@@ -324,6 +337,6 @@
           </div>
 
       </div>
-
+    </div>
 </body>
 </html>

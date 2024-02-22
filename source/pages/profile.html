@@ -3,18 +3,16 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Activity Feed</title>
+    <title>My Profile</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script type="module">
         import { createApp, ref } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
         createApp({
             setup() {
-                const newActivity = ref('New Activity')
-                let isLoggedIn = ref(false)
+                let username = ref('Username')
                 return {
-                    newActivity,
-                    isLoggedIn
+                    username
                 }
             }
         }).mount('#app')
@@ -27,23 +25,8 @@
             <a href="profile.html" class="navbar-item">My Profile</a>
         </div>
     </navbar>
-    <section id="app">
-        <div class="columns">
-            <div class="column">
-            </div>
-            <div class="column">
-                <div class="panel">
-                    <p class="panel-heading">
-                        Add Workout
-                    </p>
-                    <div class="panel-block">
-        
-                    </div>
-                </div>        
-            </div>
-            <div class="column">
-            </div>
-        </div>
-    </section>
+    <div id="app">
+        <section class="section h1">Hello, {{ username }}</section>
+    </div>
 </body>
 </html>
