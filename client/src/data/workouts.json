@@ -1,0 +1,17 @@
+{
+    "workouts": [
+        {
+            "id": 0,
+            "creator": {
+                "id":0,
+                "firstName":"Terry",
+                "lastName":"Medhurst",
+                "username":"atuny0"
+            },
+            "postTime":"2024-03-05 10:34:30 UTC",
+            "msg":"This is a test message",
+            "distance":1000,
+            "duration":30
+        }
+    ],
+}
