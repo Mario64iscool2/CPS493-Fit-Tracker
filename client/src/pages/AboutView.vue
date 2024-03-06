@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import ActivityItem from "../components/ActivityItem.vue"
 import { ref } from 'vue'
-import { type User, getUser } from '../model/users'
-import { type WorkoutActivity, getworkout } from '../model/workoutactivity'
-const user = ref(null as User | null)
-user.value = getUser(0)
+import { type User, getUserById } from '../model/users'
+import { type Workout, getWorkout } from '../model/workoutactivity'
+let user = getUserById(1)
+let w = getWorkout(1)
 </script>
 <template>
-  <ActivityItem :user="(user?.firstName as string + ' ' + user?.lastName as string)" :handle="user?.username" msg="This is a test run through campus" dist="" duration="0.5" time="1709225989"></ActivityItem>
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <ActivityItem :workout="w"></ActivityItem>
+    </div>
+  </div>
 </template>
 
 <style>

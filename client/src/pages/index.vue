@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+import CreateAccountModal from '@/components/CreateAccountModal.vue';
 </script>
 
 <template>
   <main>
-    <button class="is-primary button">Sign In</button>
+    <CreateAccountModal class="is-active" />
   </main>
 </template>

@@ -5,16 +5,9 @@ import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
-  <div>
     <NavBar />
-  </div>
-  <div class="columns">
-    <div class="column is-full">
-      <RouterView />
-    </div>
-  </div>
+    <RouterView />
 </template>
 
 <style scoped>
-
 </style>
