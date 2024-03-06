@@ -1,17 +1,30 @@
 {
     "workouts": [
         {
-            "id": 0,
+            "id": 1,
             "creator": {
-                "id":0,
+                "id":1,
                 "firstName":"Terry",
                 "lastName":"Medhurst",
                 "username":"atuny0"
             },
-            "postTime":"2024-03-05 10:34:30 UTC",
+            "postTime":1709652654000,
             "msg":"This is a test message",
-            "distance":1000,
-            "duration":30
+            "distance":500,
+            "duration":90
+        },
+        {
+            "id": 2,
+            "creator": {
+                "id":31,
+                "firstName":"Cameron",
+                "lastName":"Jarvis",
+                "username":"mario64iscool2"
+            },
+            "postTime":-1,
+            "msg":"This is a test message",
+            "distance":3000,
+            "duration":90
         }
-    ],
+    ]
 }

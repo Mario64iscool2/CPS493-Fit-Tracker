@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "workout": {
+            "type":"object",
+            "required":["discipline"],
+            "properties": {
+                "discipline":{
+                    "description": "The type of exercise being performed.",
+                    "type":"string",
+                    "enum": [
+                        "biking",
+                        "climbing",
+                        "hiking",
+                        "running",
+                        "swimming",
+                        "walking",
+                        "weightlifting"
+                    ]
+                }
+            }
+        }
+    }
+}
