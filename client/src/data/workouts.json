@@ -10,6 +10,7 @@
             },
             "postTime":1709652654000,
             "msg":"This is a test message",
+            "discipline":"biking",
             "distance":500,
             "duration":90
         },
@@ -26,5 +27,8 @@
             "distance":3000,
             "duration":90
         }
-    ]
+    ],
+    "total":2,
+    "limit":2,
+    "skip":0
 }

@@ -9,7 +9,7 @@ let w = getWorkout(1)
 <template>
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
-      <ActivityItem :workout="w"></ActivityItem>
+      <ActivityItem :first-name="w.creator.firstName"></ActivityItem>
     </div>
   </div>
 </template>

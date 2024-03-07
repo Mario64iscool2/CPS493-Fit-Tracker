@@ -2,12 +2,12 @@ import users from '../data/users.json'
 
 export interface User {
     id: number;
-    firstName: string | null;
-    lastName?: string | null;
-    email?: string | null;
-    username: string | null;
-    password?: string | null;
-    image?: string | null;
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    password?: string;
+    image?: string;
 }
 
 export function getUsers(): User[] {

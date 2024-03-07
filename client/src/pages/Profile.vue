@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import SignInModal from '@/components/SignInModal.vue';
+import ActivityItem from '@/components/ActivityItem.vue';
 import { ref } from 'vue';
 import  { type User, getUsers } from '../model/users'
+import { type Workout, getWorkouts } from '../model/workoutactivity'
 const user = ref(null as User | null);
 user.value = getUsers()[0];
 
 let activeTab = ref(0);
-let isLoggedIn = ref(false);
+let isLoggedIn = ref(true);
+
+const workouts = ref([] as Workout[])
+
+workouts.value = getWorkouts(user)
 
 </script>
 <template>
     <SignInModal :class="{ 'is-active' : !isLoggedIn}" />
-    <div class="columns">
-        <div class="column is-full-mobile is-success">
+    <div class="section">
             <div class="tabs is-centered is-fullwidth is-toggle">
                 <ul>
                     <li :class="{ 'is-active' : (activeTab.valueOf()==0) }" @click="activeTab=0"><a>Biking</a></li>
@@ -23,7 +28,11 @@ let isLoggedIn = ref(false);
                     <li :class="{ 'is-active' : (activeTab.valueOf()==5) }" @click="activeTab=5"><a>Walking</a></li>
                     <li :class="{ 'is-active' : (activeTab.valueOf()==6) }" @click="activeTab=6"><a>Weightlifting</a></li>
                 </ul>
-                </div>
+            </div>
+        </div>
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+                <ActivityItem v-for="workout in workouts" :key="workout.id" :first-name="workout.creator.firstName" />
         </div>
     </div>
 </template>

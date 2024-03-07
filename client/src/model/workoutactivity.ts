@@ -1,7 +1,7 @@
 import { type User } from './users'
 import workouts from '../data/workouts.json'
 
-export interface Workout {
+export type Workout = {
     id: number;
     creator: User;
     postTime: number;
@@ -16,7 +16,7 @@ export function getWorkouts(u: User): Workout[]
     return res;
 }
 
-export function getWorkout(id: number): Workout | undefined
+export function getWorkout(id: number): Workout
 {
     return workouts.workouts.find((element) => element.id == id);
 }
