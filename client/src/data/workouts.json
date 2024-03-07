@@ -8,10 +8,10 @@
                 "lastName":"Medhurst",
                 "username":"atuny0"
             },
-            "postTime":1709652654000,
+            "postTime":"2012-04-23T18:25:43.511Z",
             "msg":"This is a test message",
             "discipline":"biking",
-            "distance":500,
+            "distance":1000,
             "duration":90
         },
         {
@@ -22,13 +22,27 @@
                 "lastName":"Jarvis",
                 "username":"mario64iscool2"
             },
-            "postTime":-1,
+            "postTime":"2012-04-23T18:25:43.511Z",
             "msg":"This is a test message",
             "distance":3000,
             "duration":90
+        },
+        {
+            "id": 3,
+            "creator": {
+                "id":1,
+                "firstName":"Terry",
+                "lastName":"Medhurst",
+                "username":"atuny0"
+            },
+            "postTime":"2012-04-23T18:25:43.511Z",
+            "msg":"This is a test message",
+            "discipline":"walking",
+            "distance":1609.344,
+            "duration":20
         }
     ],
-    "total":2,
-    "limit":2,
+    "total":3,
+    "limit":3,
     "skip":0
 }

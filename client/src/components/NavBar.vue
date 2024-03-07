@@ -6,6 +6,7 @@ let isActive = ref(false);
 function toggleNavMenu() {
     isActive.value = !isActive.value;
 }
+defineEmits(['loadSignInModal','loadAccountModal','signOut'])
 </script>
 
 <template>
@@ -25,8 +26,8 @@ function toggleNavMenu() {
             </div>
             <div class="navbar-end">
                 <div class="buttons navbar-item">
-                    <a class="button is-primary">Sign up</a>
-                    <a class="button is-light">Log in</a>
+                    <a class="button is-primary" @click="$emit('loadAccountModal')">Sign up</a>
+                    <a class="button is-light" @click="$emit('loadSignInModal')">Log in</a>
                 </div>
             </div>
         </div>
