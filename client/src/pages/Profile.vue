@@ -4,19 +4,19 @@ import ActivityItem from '@/components/ActivityItem.vue';
 import { ref } from 'vue';
 import  { type User, getUsers } from '../model/users'
 import { type Workout, getWorkouts } from '../model/workoutactivity'
-const user = ref(null as User | null);
+const user = ref(null as unknown as User);
 user.value = getUsers()[0];
 
 let activeTab = ref(0);
-let isLoggedIn = ref(true);
+let isLoggedIn = ref(false);
 
 const workouts = ref([] as Workout[])
 
-workouts.value = getWorkouts(user)
+workouts.value = getWorkouts(user.value)
 
 </script>
 <template>
-    <SignInModal :class="{ 'is-active' : !isLoggedIn}" />
+    <SignInModal :class="{ 'is-active' : !isLoggedIn}" @submit="isLoggedIn=true"/>
     <div class="section">
             <div class="tabs is-centered is-fullwidth is-toggle">
                 <ul>
@@ -32,7 +32,11 @@ workouts.value = getWorkouts(user)
         </div>
     <div class="columns">
         <div class="column is-half is-offset-one-quarter">
-                <ActivityItem v-for="workout in workouts" :key="workout.id" :first-name="workout.creator.firstName" />
+                <ActivityItem v-for="workout in workouts"
+                    :key="workout.id" :first-name="workout.creator.firstName" 
+                    :last-name="workout.creator.lastName" :username="workout.creator.username"
+                    :post-time="workout.postTime" :elevation="workout.elevation" :reps="workout.reps"
+                    :msg="workout.msg" :distance="workout.distance" :duration="workout.duration" />
         </div>
     </div>
 </template>

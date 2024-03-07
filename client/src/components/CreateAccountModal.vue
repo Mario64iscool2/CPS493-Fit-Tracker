@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
+const dangerUserField = ref(false)
+const dangerPassField = ref(false)
+const dangerNameField1 = ref(false)
+const dangerNameField2 = ref(false)
+const isUsernameValid = ref(true)
 </script>
 
 <template>
@@ -10,50 +14,57 @@ import { ref } from 'vue'
             <header class="modal-card-head">
                 <p class="modal-card-title">Create your account</p>
             </header>
+            <form>
             <section class="modal-card-body">
                 <p class="subtitle">First things first.</p>
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Name</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <div class="control">
-                                <input class="input" type="text" placeholder="First Name">
-                            </div>
-                                </div>
-                                <div class="field">
-                                    <div class="control">
-                                <input class="input" type="text" placeholder="Last Name">
-                            </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="field has-addons">
-                            <label class="label">Username</label>
+                <div class="field">
+                    <div class="label">
+                        <label class="label">Name <small class="is-inline help">(Required)</small></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
                             <div class="control">
-                                <input class="input" type="text" placeholder="username" maxlength="16">
-                            </div>
-                        </div>
-                        <div class="field is-narrow">
-
-                                <label class="label">Password</label>
-                                <div class="control">
-                                <input class="input" type="password" placeholder="" maxlength="32">
+                                <input class="input" type="text" placeholder="First Name" required @invalid="dangerNameField1 = true" @input="dangerNameField1 = false"
+                                        :class="{ 'is-danger' : dangerNameField1 }" name="first-name" >
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Confirm Password</label>
                             <div class="control">
-                                <input class="input" type="password" placeholder="" maxlength="32">
+                                <input class="input" type="text" placeholder="Last Name" required @invalid="dangerNameField2 = true" @input="dangerNameField2 = false"
+                                        :class="{ 'is-danger ' : dangerNameField2 }" name="last-name">
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Username <small class="help is-inline">(Must contain alphanumeric characters
+                            and underscores only)</small></label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="username" minlength="6" maxlength="16" @invalid="dangerUserField = true" @input="dangerUserField = false"
+                                        :class="{ 'is-danger ' : dangerUserField, 'is-success' : isUsernameValid}" name="username">
+                    </div>
+                </div>
+                <div class="field is-narrow">
+
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" placeholder="" maxlength="32" @invalid="dangerPassField = true" @input="dangerPassField = false"
+                                        :class="{ 'is-danger ' : dangerPassField }" name="pass">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Confirm Password</label>
+                    <div class="control">
+                        <input class="input" type="password" placeholder="" maxlength="32">
+                    </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
                 <div class="buttons">
-                    <button class="button is-primary">Create Account</button>
+                    <input class="button is-primary" type="submit" value="Create Account"></input>
                 </div>
             </footer>
+        </form>
         </div>
     </div>
 </template>
