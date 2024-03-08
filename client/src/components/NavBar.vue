@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-let isActive = ref(false);
+import { type User, getUser} from '@/model/users'
+const user = ref({} as User)
 
+let isActive = ref(false);
 function toggleNavMenu() {
     isActive.value = !isActive.value;
 }
-defineEmits(['loadSignInModal','loadAccountModal','signOut'])
+
 </script>
 
 <template>

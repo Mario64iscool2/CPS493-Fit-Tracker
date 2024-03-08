@@ -1,20 +1,42 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { type User, addUser,getUsers} from '@/model/users'
+
+defineEmits<{
+    submit : []
+}>()
+
 const dangerUserField = ref(false)
 const dangerPassField = ref(false)
 const dangerNameField1 = ref(false)
 const dangerNameField2 = ref(false)
 const isUsernameValid = ref(true)
+
+const tempUser = ref({} as User)
+
+function captureSubmit()
+{
+    const form: HTMLFormElement = document.getElementById('createForm') as HTMLFormElement
+    const inputs = form.elements;
+    for(let i = 0; i < inputs.length; i++)
+    {
+        if(inputs[i].nodeName === "INPUT")
+        {
+
+        }
+    }
+}
+
 </script>
 
 <template>
     <div class="modal">
         <div class="modal-background"></div>
-        <div class="modal-card">
+        <dialog class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Create your account</p>
             </header>
-            <form>
+            <form id='createForm' method="dialog" @submit="$emit('submit')">
             <section class="modal-card-body">
                 <p class="subtitle">First things first.</p>
                 <div class="field">
@@ -65,6 +87,12 @@ const isUsernameValid = ref(true)
                 </div>
             </footer>
         </form>
-        </div>
+    </dialog>
     </div>
 </template>
+
+<style scoped>
+dialog {
+    background-color: transparent;
+}
+</style>

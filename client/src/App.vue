@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { type User, getUser, addUser } from '@/model/users'
 import NavBar from './components/NavBar.vue'
+const auth = ref({} as User)
 </script>
 
 <template>
