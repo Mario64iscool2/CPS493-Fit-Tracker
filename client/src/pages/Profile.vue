@@ -3,30 +3,24 @@ import SignInModal from '@/components/SignInModal.vue';
 import ActivityItem from '@/components/ActivityItem.vue';
 import { ref } from 'vue';
 import  { type User, getUsers } from '../model/users'
-import { type Workout, getWorkouts } from '../model/workoutactivity'
-const user = ref(null as unknown as User);
-user.value = getUsers()[0];
+import { type IWorkout, getWorkouts, disciplines } from '../model/workoutactivity'
+import { userRef } from '@/viewmodel/usersession'
 
-let activeTab = ref(0);
-let isLoggedIn = ref(false);
+const workouts = ref([] as IWorkout[])
+const activeTab = ref(0)
 
-const workouts = ref([] as Workout[])
 
-workouts.value = getWorkouts(user.value)
+let user: User = userRef().value
+
+workouts.value = getWorkouts(user)
 
 </script>
 <template>
-    <SignInModal :class="{ 'is-active' : !isLoggedIn}" @submit="isLoggedIn=true"/>
+    
     <div class="section">
             <div class="tabs is-centered is-fullwidth is-toggle">
                 <ul>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==0) }" @click="activeTab=0"><a>Biking</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==1) }" @click="activeTab=1"><a>Climbing</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==2) }" @click="activeTab=2"><a>Hiking</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==3) }" @click="activeTab=3"><a>Running</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==4) }" @click="activeTab=4"><a>Swimming</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==5) }" @click="activeTab=5"><a>Walking</a></li>
-                    <li :class="{ 'is-active' : (activeTab.valueOf()==6) }" @click="activeTab=6"><a>Weightlifting</a></li>
+                    <li :class="{'is-active' : i==activeTab}" v-for="(discipline, i) in disciplines" @click="activeTab=i"><a>{{discipline.replace(RegExp("^[a-z]"),discipline.charAt(0).toUpperCase())}}</a></li>
                 </ul>
             </div>
         </div>

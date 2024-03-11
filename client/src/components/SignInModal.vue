@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { login } from '@/viewmodel/usersession';
+
+defineEmits<{
+    submit : []
+}>()
+
 let dangerUserField = ref(false)
-const isUsernameValid = ref(true)
+let isUsernameValid = ref(false)
+
+const att = ref({username:"", password:""})
+
 </script>
 <template>
     <div class="modal" >
@@ -10,7 +19,7 @@ const isUsernameValid = ref(true)
             <header class="modal-card-head">
                 <p class="modal-card-title">You are not logged in!</p>
             </header>
-            <form action="#">
+            <form @submit.prevent="login(att)">
             <section class="modal-card-body">
                 <p class="subtitle">Let's get you signed in.</p>
                 <div class="columns">
@@ -23,13 +32,13 @@ const isUsernameValid = ref(true)
                                     @invalid="dangerUserField = true; isUsernameValid = false"
                                     @input="dangerUserField = false; isUsernameValid = false"
                                     @focusout="isUsernameValid = (!dangerUserField) ? true : false"
-                                    :class="{ 'is-danger ' : dangerUserField, 'is-success' : !dangerUserField && isUsernameValid}" name="name" required>
+                                    :class="{ 'is-danger ' : dangerUserField, 'is-success' : !dangerUserField && isUsernameValid }" v-model="att.username" required>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
-                                <input class="input" type="password" placeholder="" minlength="8" maxlength="32"  name="pass" required>
+                                <input class="input" type="password" placeholder="" minlength="8" maxlength="32"  v-model="att.password" required>
                             </div>
                         </div>
                     </div>
