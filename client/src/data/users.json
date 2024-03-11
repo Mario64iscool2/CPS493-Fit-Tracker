@@ -10,6 +10,21 @@
             "password": "9uQFF1Lh",
             "birthDate": "2000-12-25",
             "image": "https://robohash.org/Terry.png?set=set4",
+            "imperialUnits":false,
+            "admin":false
+        },
+        {
+            "id": 31,
+            "firstName": "Cameron",
+            "lastName": "Jarvis",
+            "age": 19,
+            "email": "cameron@clcpro.com",
+            "username": "mario64iscool2",
+            "password": "password123",
+            "birthDate": "2004-03-22",
+            "image": "",
+            "imperialUnits":true,
+            "admin":true
         }
     ],
     "total": 1,

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toUnitStringInLocale } from '@/main';
+import { isImperial } from '@/viewmodel/usersession'
 const props = defineProps<{
     firstName: string
     lastName: string
@@ -12,8 +14,6 @@ const props = defineProps<{
     weight?: number
     reps?: number
 }>()
-
-let isImperial = ref(true)
 
 </script>
 
@@ -32,7 +32,7 @@ let isImperial = ref(true)
             <div class="columns">
                 <div class="column is-half has-text-centered">
                     <div>
-                        <p class="title">{{ isImperial ? (distance as number < 1609.344 ? Math.round((distance as number*(1.09361))) + ' yd' : Math.round(distance as number/1609.344) + ' mi') : (distance as number< 1000 ? Math.round((distance as number)) + ' m' : Math.round(distance as number/1000) + ' km') }}</p>
+                        <p class="title">{{ toUnitStringInLocale(distance as number) }}</p>
                         <p class="subtitle">Distance</p>
                     </div>
                 </div>

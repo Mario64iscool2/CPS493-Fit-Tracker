@@ -17,6 +17,8 @@ export interface Users {
     password: string
     image: string
     birthDate: string
+    imperialUnits: boolean | false,
+    admin: boolean | false
   }
 
 export function getUsers(): User[] {
@@ -29,7 +31,7 @@ export function getUserById(a: number): User {
 
 export function addUser(user: User)
 {
-  let temp:User = user;
+  let temp = user;
   temp.id = users.total;
   temp.birthDate = new Date(Date.parse(user.birthDate as string)).toJSON();
   
@@ -40,8 +42,10 @@ export function addUser(user: User)
   temp.age = Math.abs(year-1970);
   if(user.image == "")
   {
-    user.image = 'client/public/no-profile-image.png'
+    temp.image = 'client/public/no-profile-image.png'
   }
-  users.users.push(temp as User);
+  temp.imperialUnits = (user.imperialUnits || false) as boolean;
+  temp.admin = false;
+  users.users.push(temp);
   users.total = users.users.length;
 }
