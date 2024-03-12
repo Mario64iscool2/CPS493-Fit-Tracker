@@ -27,8 +27,11 @@ function captureSubmit()
     dangerPassField.value = (passCheck.value.password.length < 8)
     dangerCheckField.value = (passCheck.value.verifyPass.length < 8 || passCheck.value.password !== passCheck.value.verifyPass)
 
-    
-
+    if(dangerNameField1.value || dangerNameField2.value || dangerUserField.value || dangerPassField.value || dangerCheckField.value || dangerBdayField.value)
+    {
+        return;
+    }
+    getUsers().push(tempUser);
     shouldShowModalAcc.value=false;
 }
 

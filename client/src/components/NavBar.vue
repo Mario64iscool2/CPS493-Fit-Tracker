@@ -36,13 +36,18 @@ function toggleNavMenu() {
                 <p class="navbar-item has-text-centered has-text-weight-bold is-size-5 is-hidden-touch" v-if="userRef().value.admin">Admin Mode</p>
             </div>
             <div class="navbar-end">
-                <div class="buttons navbar-item">
+                <div class="buttons navbar-item" v-if="!isLoggedIn().value">
                     <a class="button is-primary"
-                    @click="$emit('loadAccountModal')"
-                    v-hide="isLoggedIn().value" >Sign up</a>
+                    @click="$emit('loadAccountModal')">Sign up</a>
                     <a class="button is-light"
-                    @click="$emit('loadSignInModal')"
-                    v-hide="isLoggedIn().value">Log in</a>
+                    @click="$emit('loadSignInModal')">Log in</a>
+                </div>
+                <div class="navbar-item is-flex is-justify-content-flex-start" v-else>
+                    <img :src="(userRef().image === '')? userRef().image : 'public/no-profile-image.png'" />
+                    <!-- I was fighting with bulma to get the exact styling I'm after, so I resorted to manual style overrides in the element as to not break the other ones. -->
+                    <p style="font-size: 0.875rem; font-weight: bold; margin-left: 8px; line-height: 1.6rem;">{{userRef().value.firstName}}
+                        <span style="line-height: 1.6rem; vertical-align: middle;" class="tag is-danger is-rounded mx-1" v-if="userRef().value.admin">Admin</span>
+                    </p>
                 </div>
             </div>
         </div>
