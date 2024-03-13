@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import SignInModal from '@/components/SignInModal.vue';
 import ActivityItem from '@/components/ActivityItem.vue';
 import { ref } from 'vue';
 import  { type User, getUsers } from '../model/users'
@@ -27,10 +26,17 @@ workouts.value = getWorkouts(user)
     <div class="columns">
         <div class="column is-half is-offset-one-quarter">
                 <ActivityItem v-for="workout in workouts"
-                    :key="workout.id" :first-name="workout.creator.firstName" 
-                    :last-name="workout.creator.lastName" :username="workout.creator.username"
-                    :post-time="workout.postTime" :elevation="workout.elevation" :reps="workout.reps"
-                    :msg="workout.msg" :distance="workout.distance" :duration="workout.duration" />
+                    :key="workout.id"
+                    :first-name="workout.creator.firstName" 
+                    :last-name="workout.creator.lastName"
+                    :username="workout.creator.username"
+                    :post-time="workout.postTime"
+                    :elevation="workout.elevation"
+                    :reps="workout.reps"
+                    :msg="workout.msg"
+                    :distance="workout.distance"
+                    :duration="workout.duration"
+                    :discipline="workout.discipline"/>
         </div>
     </div>
 </template>

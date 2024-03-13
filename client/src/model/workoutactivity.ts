@@ -16,35 +16,6 @@ export interface IWorkout {
     duration: number
 }
 
-export interface Biking extends IWorkout {
-    discipline: "biking"
-    distance: number
-}
-
-export interface Climbing extends IWorkout {
-    discipline: "climbing"
-    elevation: number
-}
-
-export interface Hiking extends IWorkout {
-    
-    distance: number
-    elevation: number
-}
-
-export interface Swimming extends IWorkout {
-    distance: number
-}
-
-export interface Walking extends IWorkout {
-
-}
-
-export interface Weightlift extends IWorkout {
-    weight: number
-    reps: number
-}
-
 export function getWorkouts(u: User): IWorkout[]
 {
     

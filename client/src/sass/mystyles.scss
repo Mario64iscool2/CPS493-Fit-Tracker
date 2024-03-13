@@ -1,0 +1,28 @@
+@charset "utf-8";
+@import "node_modules/bulma/bulma.sass";
+
+$navbar-item-img-max-height: 2rem;
+
+@media (prefers-color-scheme: dark) {
+    $scheme-main: $black;
+    $scheme-main-bis: $black-bis;
+    $scheme-main-ter: $black-ter;
+    $scheme-invert: $white;
+    $scheme-invert-bis: $white-bis;
+    $scheme-invert-ter: $white-ter;
+    $background: $black-ter;
+}
+
+.tag.is-hoverable.is-danger:hover {
+    transition: background-color 0.25s linear 0s;
+    transition: color 0.25s linear 0s;
+    background-color: $danger-light;
+    color: $danger
+}
+
+.tag.is-hoverable.is-success:hover {
+    transition: background-color 0.25s linear 0s;
+    transition: color 0.25s linear 0s;
+    background-color: $success-light;
+    color: $success
+}

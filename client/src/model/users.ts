@@ -19,6 +19,7 @@ export interface Users {
     birthDate: string
     imperialUnits: boolean | false,
     admin: boolean | false
+    friends: number[]
   }
 
 export function getUsers(): User[] {
@@ -29,11 +30,16 @@ export function getUserById(a: number): User {
     return users.users.filter((i)=>i.id==a)[0];
 }
 
+export function getFriendsOf(id: number): User[]
+{
+  return users.users.filter((i) => getUserById(id).friends.includes(i.id))
+}
+
 export function addUser(user: User)
 {
-  let temp = user;
-  temp.id = users.total;
-  temp.birthDate = new Date(Date.parse(user.birthDate as string)).toJSON();
+  users.total = users.users.length;
+  let temp:User = {id:user.id,firstName:user.firstName,lastName:user.lastName,username:user.username,email:user.email,birthDate:user.birthDate,image:user.image,password:user.password,imperialUnits:true,age:0,admin:false, friends:[]};
+  temp.birthDate = new Date(Date.parse(user.birthDate as string)).toJSON().substring(0,10);
   
   // Age Calculation
   let month_diff = Date.now() - Date.parse(user.birthDate)
@@ -46,6 +52,6 @@ export function addUser(user: User)
   }
   temp.imperialUnits = (user.imperialUnits || false) as boolean;
   temp.admin = false;
+  temp.friends = [];
   users.users.push(temp);
-  users.total = users.users.length;
 }

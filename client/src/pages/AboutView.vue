@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ActivityItem from "../components/ActivityItem.vue"
 import { ref } from 'vue'
-import { type IWorkout, getWorkouts } from '../model/workoutactivity'
+import { type IWorkout, getWorkouts,getWorkout } from '../model/workoutactivity'
 import { userRef } from '@/viewmodel/usersession'
-let w = getWorkouts(userRef().value)[0]
+let w = getWorkout(1)
 </script>
 <template>
   <div class="columns is-mobile">
@@ -14,7 +14,8 @@ let w = getWorkouts(userRef().value)[0]
         :post-time="w.postTime"
         :msg="w.msg"
         :distance="w.distance"
-        :duration="w.duration" />
+        :duration="w.duration"
+        :discipline="w.discipline"/>
     </div>
   </div>
 </template>

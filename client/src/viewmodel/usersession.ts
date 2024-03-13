@@ -23,7 +23,9 @@ export function login(u: {username: string, password:string})
         imperial.value = userCheck.imperialUnits as boolean
         shouldShowModalSign.value = false
     }
-    else { } //Do nothing, as the login failed.
+    else {
+        console.log(u.username, userCheck?.username, u.password, userCheck?.password)
+    } //Do nothing, as the login failed.
 }
 
 export function logout()

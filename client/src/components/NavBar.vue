@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { type User } from '@/model/users'
-import { userRef, isLoggedIn } from '@/viewmodel/usersession'
+import { userRef, isLoggedIn, logout } from '@/viewmodel/usersession'
+
 
 defineEmits<{
 loadSignInModal : [],
@@ -42,13 +43,19 @@ function toggleNavMenu() {
                     <a class="button is-light"
                     @click="$emit('loadSignInModal')">Log in</a>
                 </div>
-                <div class="navbar-item is-flex is-justify-content-flex-start" v-else>
-                    <img :src="(userRef().image === '')? userRef().image : 'public/no-profile-image.png'" />
+                <div class="navbar-item" v-else>
+                    <div class="navbar-item is-flex is-justify-content-flex-start">
+                    <img :src="(userRef().value.image !=='')? userRef().value.image : '/no-profile-image.png'" />
                     <!-- I was fighting with bulma to get the exact styling I'm after, so I resorted to manual style overrides in the element as to not break the other ones. -->
                     <p style="font-size: 0.875rem; font-weight: bold; margin-left: 8px; line-height: 1.6rem;">{{userRef().value.firstName}}
                         <span style="line-height: 1.6rem; vertical-align: middle;" class="tag is-danger is-rounded mx-1" v-if="userRef().value.admin">Admin</span>
                     </p>
                 </div>
+                <div class="navbar-item buttons">
+                    <a class="button is-light" @click="logout">Logout</a>
+                </div>
+                </div>
+                
             </div>
         </div>
     </nav>
