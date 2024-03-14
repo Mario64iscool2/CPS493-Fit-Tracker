@@ -14,8 +14,10 @@ const loggedIn = isLoggedIn()
     <NavBar @load-account-modal="shouldShowModalAcc=true"
             @load-sign-in-modal="shouldShowModalSign=true"/>
     <RouterView />
+    <div class="is-clipped">
     <SignInModal :class="{ 'is-active' : shouldShowModalSign}" />
     <CreateAccountModal :class="{ 'is-active' : shouldShowModalAcc }"/>
+</div>
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { type User, getUsers } from '@/model/users'
-import type { RefSymbol } from '@vue/reactivity'
 
 const auth = ref({} as User)
 const imperial = ref(true)
@@ -10,6 +9,7 @@ export const isLoggedIn = () => loggedIn
 
 export const shouldShowModalAcc = ref(false)
 export const shouldShowModalSign = ref(false)
+export const shouldShowModalExc = ref(false)
 
 export const userRef = () => auth
 

@@ -21,7 +21,7 @@ function toggleNavMenu() {
 <template>
     <nav class="navbar" :class="{'is-info' : userRef().value.admin}">
         <div class="navbar-brand">
-            <p style="text-align: center;padding-left: 8px;padding-right: 8px;">Icon<br />Pending</p>
+            <p class="navbar-item has-text-centered">Icon<br />Pending</p>
             <p class="navbar-item has-text-centered has-text-weight-bold is-size-5 is-hidden-desktop" v-if="userRef().value.admin">Admin Mode</p>
             <a role="button" class="navbar-burger" :class="{ 'is-active' : isActive }" @click="toggleNavMenu">
             <span style="stroke: black;"></span>
@@ -31,7 +31,7 @@ function toggleNavMenu() {
         </div>
         <div id="navMenu" class="navbar-menu" :class="{ 'is-active' : isActive }">
             <div class="navbar-start">
-                <RouterLink class="navbar-item" to="/home">Home</RouterLink>
+                <RouterLink class="navbar-item" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" to="/profile">My Profile</RouterLink>
                 <RouterLink class="navbar-item" to="/admin" v-if="userRef().value.admin">Admin View</RouterLink>
                 <p class="navbar-item has-text-centered has-text-weight-bold is-size-5 is-hidden-touch" v-if="userRef().value.admin">Admin Mode</p>
@@ -52,7 +52,7 @@ function toggleNavMenu() {
                     </p>
                 </div>
                 <div class="navbar-item buttons">
-                    <a class="button is-light" @click="logout">Logout</a>
+                    <a class="button is-light is-rounded is-small-desktop" @click="logout">Logout</a>
                 </div>
                 </div>
                 

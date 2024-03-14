@@ -1,3 +1,4 @@
+import { userRef } from '@/viewmodel/usersession'
 import users from '../data/users.json'
 
 export interface Users {
@@ -54,4 +55,14 @@ export function addUser(user: User)
   temp.admin = false;
   temp.friends = [];
   users.users.push(temp);
+}
+
+export function deleteUser(uid: number)
+{
+  if(users.users.find(u => u.id === uid)?.admin || userRef().value.id === uid)
+  {
+    return; //Can't attempt to delete ourselves, or other admins.
+  }
+    users.users.sort((i)=> i.id)
+    users.users.splice(users.users.findIndex((i)=>i.id === uid),1)
 }

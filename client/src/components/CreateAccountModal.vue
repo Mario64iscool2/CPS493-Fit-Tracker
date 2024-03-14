@@ -18,7 +18,7 @@ const isUsernameValid = ref(true)
 const isEmailValid = ref(false)
 const isEmailReused = ref(false)
 
-const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",imperialUnits:true,age:0,admin:false})
+const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",imperialUnits:true,age:0,admin:false,friends:[]})
 
 const passCheck = ref({password:"",verifyPass:""})
 
@@ -59,9 +59,10 @@ function captureSubmit()
         <dialog class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Create your account</p>
+                <button class="delete" aria-label="close" @click="shouldShowModalAcc=false"></button>
             </header>
             <form id='createForm' method="dialog" @submit.prevent="captureSubmit">
-            <section class="modal-card-body">
+                <section class="modal-card-body">
                 <p class="subtitle">First things first.</p>
                 <div class="field">
                     <div class="label">
@@ -138,5 +139,12 @@ function captureSubmit()
 <style scoped>
 dialog {
     background-color: transparent;
+    border: transparent;
+    margin:0px;
+    padding: 0px;
+}
+
+.modal-card form {
+    display: contents;
 }
 </style>

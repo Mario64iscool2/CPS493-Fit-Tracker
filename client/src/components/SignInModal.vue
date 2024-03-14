@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { login } from '@/viewmodel/usersession';
+import { login, shouldShowModalAcc, shouldShowModalSign } from '@/viewmodel/usersession';
 
 defineEmits<{
     submit : []
@@ -18,6 +18,7 @@ const att = ref({username:"", password:""})
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">You are not logged in!</p>
+                <button class="delete" aria-label="close" @click="shouldShowModalSign=false"></button>
             </header>
             <form @submit.prevent="login(att)">
             <section class="modal-card-body">
@@ -47,6 +48,7 @@ const att = ref({username:"", password:""})
             <footer class="modal-card-foot">
                 <div class="buttons">
                     <input class="button is-primary" type="submit" value="Sign In" formmethod="dialog"></input>
+                    <span class="is-help">Don't have an account?</span><span>&nbsp;</span><span class="is-link is-clickable is-underlined has-text-link has-text-weight-medium" @click="shouldShowModalAcc=true;shouldShowModalSign=false">Create one here!</span>
                 </div>
             </footer>
         </form>
