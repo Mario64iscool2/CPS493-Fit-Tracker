@@ -32,7 +32,7 @@ workouts.value = getWorkouts(user)
                     :elevation="workout.elevation"
                     :reps="workout.reps"
                     :msg="workout.msg"
-                    :distance="workout.distance"
+                    :distance="(workout.distance as number)"
                     :duration="workout.duration"
                     :discipline="workout.discipline"/>
         </div>
