@@ -41,9 +41,23 @@
             "imperialUnits":true,
             "admin":true,
             "friends": [1,2]
+        },
+        {
+            "id":4,
+            "firstName":"Moshe",
+            "lastName":"Plotkin",
+            "username":"jewpaltz",
+            "password":"password",
+            "email":"plotkinm@newpaltz.edu",
+            "imperialUnits":true,
+            "admin":true,
+            "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMo3I5GL9_Zd_LULXRIXTzRLlVESBnoGp8sw&usqp=CAU",
+            "age":0,
+            "birthDate":"0000-00-00",
+            "friends": [1,2,3]
         }
     ],
-    "total": 3,
+    "total": 4,
     "skip": 0,
     "limit": 30
 }

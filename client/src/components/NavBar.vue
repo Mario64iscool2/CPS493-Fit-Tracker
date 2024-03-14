@@ -19,7 +19,7 @@ function toggleNavMenu() {
 </script>
 
 <template>
-    <nav class="navbar" :class="{'is-info' : userRef().value.admin}">
+    <nav class="navbar has-shadow" :class="{'is-info' : userRef().value.admin}">
         <div class="navbar-brand">
             <p class="navbar-item has-text-centered">Icon<br />Pending</p>
             <p class="navbar-item has-text-centered has-text-weight-bold is-size-5 is-hidden-desktop" v-if="userRef().value.admin">Admin Mode</p>
