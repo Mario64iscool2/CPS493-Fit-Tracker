@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { isLoggedIn, userRef } from '@/viewmodel/usersession';
+
 </script>
 
 <template>
   <main>
+    <div class="notification is-info is-large is-overlay has-text-centered" v-if="!isLoggedIn().value">
+      <p>You're not logged in.</p>
+    </div>
       <section class="section content">
         <h1 class="title">Notable Content still missing:</h1>
         <ul>Friend Recruitment</ul>
