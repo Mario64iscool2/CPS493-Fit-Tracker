@@ -5,3 +5,9 @@ The end goal is a mobile-first fitness-tracker app with a client-server model.
 ## Features
 - The ability to share workout and fitness habits with friends
 - An admin area to manage accounts and data
+
+## Client
+Built with ES6, Typescript, Vue, and Vite
+
+## Server
+Built with CMS and Javascript
