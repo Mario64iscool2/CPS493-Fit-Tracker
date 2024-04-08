@@ -1,33 +1,22 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import App from './App.vue'
 import router from './router'
-import configureMeasurements from 'convert-units'
-import length, { type LengthSystems, type LengthUnits } from 'convert-units/definitions/length'
-import mass, { type MassSystems, type MassUnits } from 'convert-units/definitions/mass'
-import time, { type TimeSystems, type TimeUnits } from 'convert-units/definitions/time'
-import { isImperial } from './viewmodel/usersession'
+
+// Doing this because bulma doesn't add a global tracker
+// for system-wide dark theme as it only is a css library.
+
+// I would like the ability to dynamically add classes to
+// elements through binding based on dark mode settings
+
+//Tracks the media query for system-wide dark mode
+export const dark = () => ref(window.matchMedia("(prefers-color-scheme: dark)"))
+
+
 
 const app = createApp(App)
 
 app.use(router)
 
 app.mount('#app')
-
-export function toUnitStringInLocale(value: number): string {
-    const convert = configureMeasurements({length})
-        return (isImperial().value) ? Math.round(convert(value).from('m').toBest({system: 'imperial',exclude:['fathom','nMi']})?.val as number) + ' ' + convert(value).from('m').toBest({system: 'imperial',exclude:['fathom','nMi']})?.unit : Math.round(convert(value).from('m').toBest({system: 'metric'})?.val as number) + ' ' + convert(value).from('m').toBest({system: 'metric'})?.unit
-}
-
-export function toWeightInLocale(value:number): string
-{
-    const convert = configureMeasurements({mass})
-    return (isImperial().value) ? convert(value).from('kg').to('lb') + ' ' + convert(value).from('kg').toBest({system:'imperial'})?.unit : value + ' kg'
-}
-
-export function postTimeDifference(value:number): string
-{
-    const convert = configureMeasurements({time})
-    return Math.round(convert(Date.now()-value).from('ms').toBest()?.val as number) + " " + (convert(Date.now()-value).from('ms').toBest()?.singular as string) + ((Math.round(convert(Date.now()-value).from('ms').toBest()?.val as number) === 1) ? " ago" : "s ago");
-}

@@ -1,14 +1,18 @@
 import { type User } from './users'
 import workouts from '../data/workouts.json'
+import { ItoM_L, ItoM_M, MtoI_L, MtoI_M } from '@/unit-helpers';
+import type { LengthImperialUnits } from 'convert-units/definitions/length';
+import type { MassUnits } from 'convert-units/definitions/mass';
 
-export const disciplines = ['biking','climbing','hiking','running','swimming','walking','weightlifting']
 
+export const disciplines = ['biking','climbing','hiking','running','swimming','walking','weightlifting'] as const;
+export type Discipline = typeof disciplines[number];
 export interface IWorkout {
     id: number,
     creator: number,
     postTime: string,
     msg: string,
-    discipline: string,
+    discipline: Discipline,
     distance?: number,
     duration: number,
     reps?: number,
@@ -18,8 +22,12 @@ export interface IWorkout {
 
 export function getWorkouts(u: User): IWorkout[]
 {
-    
     let res = workouts.workouts.filter(item => item.creator === u.id) as IWorkout[];
+    return res;
+}
+
+export function filterWorkouts(u: User,d: Discipline) {
+    let res = workouts.workouts.filter(item => item.creator === u.id && item.discipline === d)
     return res;
 }
 
@@ -28,38 +36,39 @@ export function getWorkout(id: number): IWorkout
     return workouts.workouts.find((w) => w.id === id) as IWorkout;
 }
 
-// I had to fight with Typescript and ChatGPT for over and hour
-// to figure out why I couldn't push my IWorkout object.
 export function addWorkout(w: {
     id: number,
     creator: number,
     postTime: string,
-    discipline: string,
+    discipline: Discipline,
     distance?: number,
     elevation?: number,
-    duration: number,
+    durationHours: number,
+    durationMinutes: number,
     msg: string,
-    reps: number,
-    weight: number,
-}) {
+    reps?: number,
+    weight?: number,
+}, units: {dist: LengthImperialUnits, elev: LengthImperialUnits, wght: MassUnits}) {
     workouts.total = workouts.workouts.length;
     const workout: IWorkout = {
         id: workouts.total,
         creator: w.creator,
-        postTime: new Date(Date.parse(w.postTime)).toJSON(),
+        postTime: new Date(Date.now()).toJSON(),
         msg: w.msg,
         discipline: w.discipline,
-        duration: w.duration,
+        duration: w.durationHours*60 + w.durationMinutes,
     };
     if (['biking', 'hiking', 'running', 'swimming', 'walking'].includes(w.discipline)) {
-        workout.distance = typeof w.distance === 'number' ? w.distance : undefined;
+        workout.distance = !Number.isNaN(w.distance) ? ItoM_L(w.distance as number, units.dist) : undefined;
     }
     if (['climbing', 'hiking'].includes(w.discipline)) {
-        workout.elevation = typeof w.elevation === 'number' ? w.elevation : undefined;
+        workout.elevation = typeof w.elevation === 'number' ? ItoM_L(w.elevation,units.elev) : undefined;
     }
     if (w.discipline === 'weightlifting') {
         workout.reps = w.reps;
         workout.weight = w.weight;
     }
+    
     (workouts.workouts as IWorkout[]).push(workout);
 }
+

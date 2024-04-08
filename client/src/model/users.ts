@@ -61,7 +61,7 @@ export function deleteUser(uid: number)
 {
   if(users.users.find(u => u.id === uid)?.admin || userRef().value.id === uid)
   {
-    return; //Can't attempt to delete ourselves, or other admins.
+    return; //Can't attempt to delete ourselves, or other admins, through the admin view anyways.
   }
     users.users.sort((i)=> i.id)
     users.users.splice(users.users.findIndex((i)=>i.id === uid),1)

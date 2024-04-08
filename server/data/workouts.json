@@ -1,5 +1,5 @@
 {
-    "workouts": [
+    "items": [
         {
             "id": 1,
             "creator":1,
@@ -10,7 +10,7 @@
             "duration":90
         },
         {
-            "id": 25,
+            "id": 2,
             "creator":3,
             "postTime":"2012-04-23T18:25:43.511Z",
             "msg":"This is a test message",
@@ -20,7 +20,7 @@
             
         },
         {
-            "id": 26,
+            "id": 3,
             "creator":1,
             "postTime":"2012-04-23T18:25:43.511Z",
             "msg":"This is a test message",
@@ -29,7 +29,7 @@
             "duration":20
         },
         {
-            "id":27,
+            "id":4,
             "creator":2,
             "postTime":"2024-03-10T18:25:00.000Z",
             "discipline":"walking",
@@ -38,7 +38,7 @@
             "msg":"Walked the local loop."
         },
         {
-            "id":28,
+            "id":5,
             "creator":3,
             "postTime":"2024-03-11T18:25:00.000Z",
             "discipline":"climbing",
@@ -47,7 +47,7 @@
             "msg":""
         },
         {
-            "id":29,
+            "id":6,
             "creator":3,
             "postTime":"2024-03-11T18:25:00.000Z",
             "msg":"",
@@ -57,7 +57,7 @@
             "duration":1
         }
     ],
-    "total":5,
+    "total":6,
     "limit":0,
     "skip":0
 }

@@ -31,8 +31,9 @@ function captureSubmit()
     dangerUserField.value  = (tempUser.value.username.length < 6 || getUsers().findIndex((e)=>e.username === tempUser.value.username) != -1) || !isUsernameValid
     dangerPassField.value = (passCheck.value.password.length < 8)
     //No Two accounts can share an email.
-    isEmailReused.value = ((getUsers().findIndex((e)=> e.email === tempUser.value.email) != -1) && tempUser.value.email.length !=0)
-    isEmailValid.value = tempUser.value.email.includes('@') && tempUser.value.email.includes('.')
+    isEmailReused.value = ((getUsers().findIndex((e)=> e.email === tempUser.value.email) != -1) && tempUser.value.email !=="")
+    isEmailValid.value = tempUser.value.email.includes('@') && tempUser.value.email.includes('.') || tempUser.value.email == ""
+
     dangerEmailField.value = isEmailReused.value || !(isEmailValid.value)
     dangerCheckField.value = (passCheck.value.verifyPass.length < 8 || passCheck.value.password !== passCheck.value.verifyPass)
     if(dangerNameField1.value || dangerNameField2.value || dangerUserField.value || dangerPassField.value || dangerCheckField.value || dangerEmailField.value || isEmailReused.value || dangerBdayField.value)
@@ -102,7 +103,7 @@ function captureSubmit()
                 <div class="field">
                     <label class="label">Email <small class="help is-inline">(Optional)</small>&nbsp;<small class="help is-inline is-danger" v-if="isEmailReused">Email already in use!</small></label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="user@example.com" maxlength="320" @input="isEmailReused=false; isEmailValid=true; dangerEmailField=false"
+                        <input class="input" type="email" placeholder="user@example.com" maxlength="320" @input="isEmailReused=false; isEmailValid=true; dangerEmailField=false"
                                         :class="{ 'is-danger ' : dangerEmailField, 'is-success' : (isEmailValid && !isEmailReused)}" v-model="tempUser.email"
                                         autocomplete="email">
                     </div>

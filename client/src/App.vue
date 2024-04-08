@@ -13,6 +13,8 @@ const loggedIn = isLoggedIn()
 <template>
     <NavBar @load-account-modal="shouldShowModalAcc=true"
             @load-sign-in-modal="shouldShowModalSign=true"/>
+    <div style="height: 4rem;"></div>
+    <!-- Spacing so the bar doesn't overlap the content of the pages -->
     <RouterView />
     <div class="is-clipped">
     <SignInModal :class="{ 'is-active' : shouldShowModalSign}" />

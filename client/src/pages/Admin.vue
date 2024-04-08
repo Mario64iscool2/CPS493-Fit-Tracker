@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { shouldShowModalAcc, userRef } from '@/viewmodel/usersession';
-import { getUsers,deleteUser, getUserById } from '@/model/users';
+import { getUsers,deleteUser, getUserById, getFriendsOf } from '@/model/users';
 </script>
 
 <template>
@@ -30,9 +30,9 @@ import { getUsers,deleteUser, getUserById } from '@/model/users';
                             <td class="td _20rem">{{ user.email }}</td>
                             <td class="td _16rem">{{ user.username }}</td>
                             <td class="td _12rem">{{ user.birthDate }}</td>
-                            <td class="td"><a v-for="friend in user.friends" >{{ getUserById(friend).id }} </a></td>
+                            <td class="td" style="width:fit-content; max-width: 20rem;">{{ user.friends }}</td>
                             <td class="td _6rem">{{ user.admin }}</td>
-                            <td class="td is-narrow"><button @click="deleteUser(user.id)" class="button is-danger is-small is-rounded" :disabled="user.id===userRef().value.id">Delete</button></td>
+                            <td class="td is-narrow"><button @click="deleteUser(user.id)" class="button is-danger is-small is-rounded" :disabled="user.id===userRef().value.id || user.admin">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>

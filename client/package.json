@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "devhost": "vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "css-build": "node-sass --omit-source-map-url src/sass/mystyles.scss src/assets/mystyles.css",
+    "css-build": "sass --load-path=node_modules src/sass/mystyles.scss src/assets/mystyles.css",
     "css-watch": "npm run css-build -- --watch"
   },
   "dependencies": {

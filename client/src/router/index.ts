@@ -10,15 +10,12 @@ const router = createRouter({
 
 router.beforeEach((to,from,next) => {
   const session = userRef();
-  if((to.path ==='/admin') && !session.value.admin)
+  if(((to.path ==='/admin') && !session.value.admin))
   {
     next('/');
+    return;
   }
-  if(!routes.some(r => r.path === to.path))
-  {
-    next('/')
-  }
-  next(to);
+  next();
 })
 
 export default router
