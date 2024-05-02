@@ -34,7 +34,7 @@ export function MtoI_L(value: number, unit: LengthImperialUnits) {
 
 export function toWeightInLocale(value: number): string {
     const convert = configureMeasurements({ mass })
-    return (isImperial().value) ? convert(value).from('kg').to('lb') + ' lb' : value + ' kg';
+    return (isImperial().value) ? Math.fround(convert(value).from('kg').to('lb')).toFixed() + ' lb' : Math.fround(value).toFixed(2) + ' kg';
 }
 
 export function postTimeDifference(value: number): string {
