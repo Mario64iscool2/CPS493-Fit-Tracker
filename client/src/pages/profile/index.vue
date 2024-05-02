@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import ActivityItem from '@/components/ActivityItem.vue';
 import { ref, watch } from 'vue';
-import { type IWorkout, getWorkouts, type Discipline, disciplines } from '../model/workoutactivity'
+import { type IWorkout, getWorkouts, type Discipline, disciplines, filterWorkouts } from '../../model/workoutactivity'
 import { userRef } from '@/viewmodel/usersession'
 
 const workouts = ref([] as IWorkout[])
 const activeTab = ref(0)
 const user = ref(userRef())
+const filters = ref([] as Discipline[])
 
-workouts.value = getWorkouts(userRef().value)
-watch(user, (newValue) => { workouts.value = getWorkouts(newValue) });
+if(typeof user.value != undefined)
+{
+    getWorkouts(userRef().value).then(ret => workouts.value = ret)
+}
+watch(user, (newValue) => { getWorkouts(newValue).then(ret => workouts.value = ret) });
+    
 
 
 
@@ -17,7 +22,7 @@ watch(user, (newValue) => { workouts.value = getWorkouts(newValue) });
 <template>
     <div class="section">
             <div class="buttons is-centered is-fullwidth is-toggle">                
-                    <button class="button" :class="{'is-active is-link' : i==activeTab}" v-for="(discipline, i) in disciplines" @click="activeTab=i">{{discipline.replace(RegExp("^[a-z]"),discipline.charAt(0).toUpperCase())}}</button>
+                    <button class="button" :class="{'is-active is-link' : i==activeTab, 'is-danger' : filters.includes(discipline)}" v-for="(discipline, i) in disciplines" @click="activeTab=i; filters = []" @auxclick="activeTab=i; filters.push(discipline)">{{discipline.replace(RegExp("^[a-z]"),discipline.charAt(0).toUpperCase())}}</button>
             </div>
         </div>
     <div class="columns">
@@ -31,7 +36,8 @@ watch(user, (newValue) => { workouts.value = getWorkouts(newValue) });
                     :msg="(workout.msg as string)"
                     :distance="(workout.distance as number)"
                     :duration="workout.duration"
-                    :discipline="workout.discipline"/>
+                    :discipline="workout.discipline"
+                    :weight="(workout.weight as number)"/>
         </div>
     </div>
 </template>

@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { shouldShowModalAcc, userRef } from '@/viewmodel/usersession';
-import { getUsers,deleteUser, getUserById, getFriendsOf } from '@/model/users';
+import { getAll,deleteUser, getUserById, getFriendsOf, type User } from '@/model/users';
+import { postTimeDifference } from '@/unit-helpers';
+const users = ref([] as User[])
+async function updateRefs()
+{
+    getAll().then(u => users.value = u).catch()
+}
+
+function doUpdate()
+{
+    return updateRefs().then();
+}
+
+doUpdate()
 </script>
 
 <template>
-    <div v-if="userRef().value.admin"> <!-- Hides if not administrator and if router guard fails -->
+    <div v-if="userRef().value.admin" @click="doUpdate"> <!-- Hides if not administrator and if router guard fails -->
         <div class="columns is-mobile">
             <div class="column auto"></div>
             <div class="column is-full-mobile is-three-quarters-tablet is-three-fifths-widescreen is-half-fullhd">
@@ -20,10 +33,11 @@ import { getUsers,deleteUser, getUserById, getFriendsOf } from '@/model/users';
                         <th class="th">DOB</th>
                         <th class="th">Friends</th>
                         <th class="th">Is Admin?</th>
+                        <th class="th">Account Created</th>
                         <th></th>
                     </thead>
                     <tbody class="tbody">
-                        <tr class="tr" v-for="user in getUsers()" :key="user.id">
+                        <tr class="tr" v-for="user in users" :key="user.id">
                             <td class="td">{{ user.id }}</td>
                             <td class="td _7rem">{{ user.firstName }}</td>
                             <td class="td _10rem">{{ user.lastName }}</td>
@@ -32,6 +46,7 @@ import { getUsers,deleteUser, getUserById, getFriendsOf } from '@/model/users';
                             <td class="td _12rem">{{ user.birthDate }}</td>
                             <td class="td" style="width:fit-content; max-width: 20rem;">{{ user.friends }}</td>
                             <td class="td _6rem">{{ user.admin }}</td>
+                            <td class="td">{{ postTimeDifference(user.creationTimestamp) }}</td>
                             <td class="td is-narrow"><button @click="deleteUser(user.id)" class="button is-danger is-small is-rounded" :disabled="user.id===userRef().value.id || user.admin">Delete</button></td>
                         </tr>
                     </tbody>

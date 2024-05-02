@@ -10,7 +10,7 @@ import { isLoggedIn, userRef } from '@/viewmodel/usersession';
     </div>
       <section class="section content">
         <h1 class="">Notable Content still missing:</h1>
-        <li>Friend Recruitment</li>
+        <li class="has-text-warning-on-scheme">Friend Recruitment <small class="is-help has-text-success-on-scheme">User search is implemented, but the ability to actually befriend users is work-in-progress</small></li>
         <li>Friend's Activity Feed</li>
         <li><span class="has-text-danger-on-scheme">Your Stats</span> (User Profile Works otherwise.)</li>
         <li class="has-text-danger-on-scheme">Workout Creation UI <small class="is-help has-text-warning-on-scheme">The underlying infrastructure is in place. I just ran out of time for UI/UX design. See <RouterLink to="/aboutview">here</RouterLink> for a work-in-progress.</small></li>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { dark } from '@/main'
+import { isDark } from '@/main'
 import { userRef, isLoggedIn, logout } from '@/viewmodel/usersession'
 import ProfilePicture from '../components/ProfilePicture.vue'
 
@@ -14,11 +14,10 @@ let isActive = ref(false);
 function toggleNavMenu() {
     isActive.value = !isActive.value;
 }
-
 </script>
 
 <template>
-    <nav class="navbar has-shadow is-sticky is-fixed-top" :class="{ 'is-info' : userRef().value.admin, 'is-dark' : dark().value.matches }" aria-label="main navigation">
+    <nav class="navbar has-shadow is-sticky is-fixed-top" :class="{ 'is-info' : userRef().value.admin, 'is-dark' : isDark() }" aria-label="main navigation">
         <div class="navbar-brand">
             <p class="navbar-item has-text-centered">Icon<br />Pending</p>
             <p class="navbar-item has-text-centered has-text-weight-bold is-size-5 is-hidden-desktop" v-if="userRef().value.admin">Admin Mode</p>
@@ -41,7 +40,7 @@ function toggleNavMenu() {
                     <a class="button is-primary is-large-touch"
                     @click="$emit('loadAccountModal')">Sign up</a>
                     <a class="button is-outlined is-large-touch"
-                    @click="$emit('loadSignInModal')" :class="{ 'is-light' : dark().value.matches, 'is-dark': !dark().value.matches }">Log in</a>
+                    @click="$emit('loadSignInModal')" :class="{ 'is-light' : isDark(), 'is-dark': !isDark() }">Log in</a>
                 </div>
                 <div class="navbar-item" v-else>
                     <div class="navbar-item is-flex is-justify-content-flex-start">

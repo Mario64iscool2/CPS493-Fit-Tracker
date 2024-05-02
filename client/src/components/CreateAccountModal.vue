@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { type User, addUser,getUsers, getUserById} from '@/model/users'
+import { type User, addUser,getAll, getUserById} from '@/model/users'
 import { shouldShowModalAcc } from '@/viewmodel/usersession'
 import type { RefSymbol } from '@vue/reactivity';
 defineEmits<{
@@ -18,20 +18,20 @@ const isUsernameValid = ref(true)
 const isEmailValid = ref(false)
 const isEmailReused = ref(false)
 
-const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",imperialUnits:true,age:0,admin:false,friends:[]})
+const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",imperialUnits:true,age:0,admin:false,friends:[],creationTimestamp:Date.now()})
 
 const passCheck = ref({password:"",verifyPass:""})
 
-function captureSubmit()
+async function captureSubmit()
 {
     dangerNameField1.value = (tempUser.value.firstName == "")
     dangerNameField2.value = (tempUser.value.firstName == "")
-    isUsernameValid.value = !(tempUser.value.username.match(RegExp('\\W*')))
+    isUsernameValid.value = !(tempUser.value.username.match(RegExp('\\W*')));
 
-    dangerUserField.value  = (tempUser.value.username.length < 6 || getUsers().findIndex((e)=>e.username === tempUser.value.username) != -1) || !isUsernameValid
-    dangerPassField.value = (passCheck.value.password.length < 8)
+    dangerUserField.value = (await getAll().then(all => all.findIndex((e)=> e.username === tempUser.value.username) != -1))
+    dangerPassField.value = (passCheck.value.password.length < 8);
     //No Two accounts can share an email.
-    isEmailReused.value = ((getUsers().findIndex((e)=> e.email === tempUser.value.email) != -1) && tempUser.value.email !=="")
+    isEmailReused.value = ((await getAll().then(all => all.findIndex((e)=> e.email === tempUser.value.email) != -1) && tempUser.value.email !==""))
     isEmailValid.value = tempUser.value.email.includes('@') && tempUser.value.email.includes('.') || tempUser.value.email == ""
 
     dangerEmailField.value = isEmailReused.value || !(isEmailValid.value)
@@ -40,16 +40,8 @@ function captureSubmit()
     {
         return;
     }
-    tempUser.value.id = getUsers().length
-    let i = getUsers().length
-    while(getUserById(i))
-        {
-            i++;
-        }
-    tempUser.value.id = i;
     tempUser.value.password = passCheck.value.password;
-    addUser(tempUser.value);
-    shouldShowModalAcc.value=false;
+    addUser(tempUser.value).then(()=>shouldShowModalAcc.value=false);
 }
 
 </script>
@@ -113,7 +105,7 @@ function captureSubmit()
                     <label class="label">Password</label>
                     <div class="control">
                         <input class="input" type="password" placeholder="" maxlength="32" @invalid="dangerPassField = true" @input="dangerPassField = false"
-                                        :class="{ 'is-danger ' : dangerPassField }" v-model="passCheck.password" autocomplete="new-password">
+                                        :class="{ 'is-danger' : dangerPassField }" v-model="passCheck.password" autocomplete="new-password">
                     </div>
                 </div>
                 <div class="field">
@@ -122,8 +114,8 @@ function captureSubmit()
                         <input class="input" type="password"
                         maxlength="32"
                         v-model="passCheck.verifyPass"
-                        :class="{ 'is-danger ' : dangerCheckField }"
-                        autocomplete="current-password">
+                        :class="{ 'is-danger' : dangerCheckField }"
+                        autocomplete="new-password">
                     </div>
                 </div>
             </section>

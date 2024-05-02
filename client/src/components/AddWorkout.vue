@@ -9,10 +9,6 @@ const props = defineProps<{
     workout?: IWorkout
 }>();
 
-defineEmits<{
-    submit: []
-}>()
-
 const workout = ref({ id: -1, creator: userRef().value.id, postTime: "", discipline: 'biking' as Discipline, msg: "", durationHours: 0, durationMinutes: 0, distance: 0, elevation: 0, reps: 0, weight: 0 })
 const units = ref({dist: 'yd' as LengthImperialUnits, elev: 'ft' as LengthImperialUnits, wght: 'lb' as MassImperialUnits});
 if(props.workout)

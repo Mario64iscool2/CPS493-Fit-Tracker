@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { toUnitStringInLocale, toWeightInLocale, postTimeDifference } from '@/unit-helpers';
 import { isImperial, shouldShowModalExc } from '@/viewmodel/usersession'
-import { getUserById } from '@/model/users';
+import { getUserById, type User} from '@/model/users';
 import ProfilePicture from '../components/ProfilePicture.vue'
 import type { Discipline } from '@/model/workoutactivity';
 import AddWorkout from './AddWorkout.vue';
+import { ref } from 'vue';
 const props = defineProps<{
     creator: number
     postTime: string
@@ -16,6 +17,11 @@ const props = defineProps<{
     reps?: number
     discipline: Discipline
 }>()
+
+const user = ref({} as User)
+
+getUserById(props['creator']).then((u)=> user.value = u);
+
 
 
 const filteredKeys: Array<keyof typeof props> = ['distance', 'elevation', 'reps', 'weight', 'duration']
@@ -89,10 +95,10 @@ const formatLabel = (key: string): string => {
         <div class="card-header">
             <div class="columns is-mobile card-header-title">
                 <div class="column auto">
-                    <span class="content"><span class="icon-text"><ProfilePicture source="{{ getUserById(creator).image }}"/></span>
-                        &nbsp;<span><strong class="strong">{{ getUserById(creator).firstName + '&nbsp;' +
-                                    getUserById(creator).lastName }}</strong></span>&nbsp;<small class="small">@{{
-                                    getUserById(creator).username }}</small>
+                    <span class="content"><span class="icon-text"><ProfilePicture source="{{ user.image }}"/></span>
+                        &nbsp;<span><strong class="strong">{{ user.firstName + '&nbsp;' +
+                                    user.lastName }}</strong></span>&nbsp;<small class="small">@{{
+                                        user.username }}</small>
                     </span>
                 </div>
                 <div class="column is-narrow">{{ postTimeDifference(Date.parse(postTime.toLocaleString())) }}</div>
