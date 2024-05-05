@@ -10,50 +10,59 @@ const app = express.Router();
 
 app
     .get('/', (req, res, next) => {
-        const all = users.getAll();
-        /** @type { UserDataListEnvelope } */
-        const response = {
-            data: all,
-            totalCount: all.length,
-            isSuccess: true,
-        }
-        res.send(response);
-        
+        users.getAll()
+            .then(all => {
+                /** @type { UserDataListEnvelope } */
+                const response = {
+                    data: all,
+                    totalCount: all.length,
+                    isSuccess: true,
+                }
+                res.send(response);
+            }).catch(next);
     })
     .get('/search', (req, res, next) => {
 
         const search = req.query.q;
-        if(typeof search !== 'string' ) throw new Error('search is required');
-        const result = users.search(search);
-        /** @type { UserDataListEnvelope } */
-        const response = {
-            data: result,
-            totalCount: result.length,
-            isSuccess: true,
-        }
-        res.send(response);
-
+        if (typeof search !== 'string') throw new Error('search is required');
+        users.search(search).then(result => {
+            /** @type { UserDataListEnvelope } */
+            const response = {
+                data: result,
+                totalCount: result.length,
+                isSuccess: true,
+            }
+            res.send(response);
+        }).catch(next);
     })
     .get('/:id', (req, res, next) => {
         const id = req.params.id;
-        /** @type { UserDataEnvelope } */
-        const response = {
-            data: users.get(+id),
-            isSuccess: true,
-        }
-        res.send(response);
+        users.get(+id).then(u => {
+            /** @type { UserDataEnvelope } */
+            const response = {
+                data: u,
+                isSuccess: true,
+            }
+            res.send(response);
+        })
+    })
+    .get('/:id/friends', (req, res, next) => {
+        const id = req.params.id;
+        users.get(+id).then(u => {
+            
+        })
     })
     .post('/', (req, res, next) => {
         const user = req.body;
-        const result = users.add(user);
+        users.add(user).then(result => {
+            /** @type { UserDataEnvelope } */
+            const response = {
+                data: result,
+                isSuccess: true,
+            }
 
-        /** @type { UserDataEnvelope } */
-        const response = {
-            data: result,
-            isSuccess: true,
-        }
-        
-        res.send(response);
+            res.send(response);
+        }).catch(next);
     })
     .patch('/:id', (req, res, next) => {
         const user = req.body;
@@ -65,20 +74,22 @@ app
             data: result,
             isSuccess: true,
         }
-        
+
         res.send(response);
     })
     .delete('/:id', (req, res, next) => {
         const id = req.params.id;
-        const result = users.remove(+id);
+        users.remove(+id).then(result => {
 
-        
+        }).catch();
+
+
         /** @type { UserDataEnvelope } */
         const response = {
             data: result,
             isSuccess: true,
         }
-        
+
         res.send(response);
     })
 

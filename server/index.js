@@ -1,15 +1,37 @@
+require('dotenv').config({path:["./.env"]});
 const express = require('express');
+const config = require('config');
+const auth = require('./controllers/auth');
 const users = require('./controllers/users');
 const workouts = require('./controllers/workouts');
 
+/** @typedef {import('../client/src/model/transportTypes').DataEnvelope<void> } ErrorDataEnvelope */
+
 const app = express();
-const PORT = 3000;
+const PORT = config.get('port');
 
 app.use(express.json())
 
-app.get('/', (req,res) => {
-    res.send()
-}).use('/api/v1/users',users).use('/api/v1/workouts',workouts);
+.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    next();
+})
+
+.use('/api/v1/users',users)
+.use('/api/v1/workouts',workouts)
+.use('/api/v1/auth',auth)
+app.use((err, req, res, next) => {
+    console.error(err);
+    /** @type {ErrorDataEnvelope} */
+    const results = {
+        data: null,
+        isSuccess: false,
+        message: err.message || "Unable to Complete Request"
+    };
+    res.status(500).send(results);
+})
 
 app.listen(PORT, () => {
     console.log("Listening to port %d on localhost",PORT)
