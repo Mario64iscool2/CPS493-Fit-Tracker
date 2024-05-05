@@ -15,6 +15,7 @@ if(props.workout)
 {
     workout.value = { id: props.workout.id, creator: props.workout.creator, postTime: props.workout.postTime, discipline: props.workout.discipline, msg: props.workout.msg, durationHours: Math.round(props.workout.duration/60), durationMinutes: props.workout.duration % 60, distance: props.workout.distance || 0, elevation: props.workout.elevation || 0, reps: props.workout.reps || 0, weight: props.workout.weight || 0 };
 }
+
 </script>
 <template>
     <div class="modal">
@@ -22,7 +23,7 @@ if(props.workout)
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Add a Workout</p>
-                <button class="delete" aria-label="close" @click="shouldShowModalExc = false"></button>
+                <button class="delete" aria-label="close" @click="$emit('close')"></button>
             </header>
             <form @submit.prevent="addWorkout(workout,units);">
                 <section class="modal-card-body">
@@ -139,6 +140,7 @@ if(props.workout)
                 <footer class="modal-card-foot">
                     <div class="buttons">
                         <input class="button is-primary" type="submit" value="Save Changes" formmethod="dialog" @submit.prevent="workout.postTime=new Date(Date.now()).toJSON(); shouldShowModalExc = false"></input>
+                        <input class="button" type="button" value="Cancel" @click="$emit('close')"
                     </div>
                 </footer>
             </form>

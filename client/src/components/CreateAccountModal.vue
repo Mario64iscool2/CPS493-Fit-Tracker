@@ -18,7 +18,7 @@ const isUsernameValid = ref(true)
 const isEmailValid = ref(false)
 const isEmailReused = ref(false)
 
-const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",imperialUnits:true,age:0,admin:false,friends:[],creationTimestamp:Date.now()})
+const tempUser = ref({id: 0, firstName:"",lastName:"",username:"",email:"",birthDate:"",image:"",password:"",unitSystem:'imperial',age:0,role:'user',friends:[],creationTimestamp:Date.now()})
 
 const passCheck = ref({password:"",verifyPass:""})
 
