@@ -15,7 +15,6 @@ const dark = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => { dark.value = event.matches })
 export const isDark = () => dark.value;
 
-
 const app = createApp(App)
 
 app.use(router)
