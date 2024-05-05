@@ -10,11 +10,16 @@ const router = createRouter({
 
 router.beforeEach((to,from,next) => {
   const session = userRef();
-  if(((to.path ==='/admin') && !session.value.admin))
+  if(((to.path ==='/admin') && session.value.role !=='admin'))
   {
     next('/');
     return;
   }
+  if(to.path ==='/profile/[:id]' && +to.params.id == session.value.id)
+    {
+      next('/profile');
+      return;
+    }
   next();
 })
 

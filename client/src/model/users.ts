@@ -1,45 +1,41 @@
-import { userRef } from '@/viewmodel/usersession'
-import users from '../data/users.json'
-
-export interface Users {
-    users: User[]
-    total: number
-    skip: number
-    limit: number
-  }
+import { api } from '@/viewmodel/usersession'
+import {apiQuery} from '@/model/myApi'
   
   export interface User {
     id: number
     firstName: string
     lastName: string
-    age: number
-    email: string
+    age?: number
+    email?: string
     username: string
-    password: string
-    image: string
+    password?: string
+    image?: string
     birthDate: string
-    imperialUnits: boolean | false,
-    admin: boolean | false
-    friends: number[]
+    unitSystem: string,
+    role: string,
+    friends: number[],
+    creationTimestamp: number
   }
 
-export function getUsers(): User[] {
-    return users.users;
+export async function getAll() {
+  const data = await apiQuery<User[]>("users")
+  return data.data;
 }
 
-export function getUserById(a: number): User {
-    return users.users.filter((i)=>i.id==a)[0];
+export async function getUserById(a: number) {
+  const data = await api<User>(`users/${a}`)
+  return data.data;
 }
 
-export function getFriendsOf(id: number): User[]
+export async function getFriendsOf(id: number): Promise<User[]>
 {
-  return users.users.filter((i) => getUserById(id).friends.includes(i.id))
+  const data = await getAll().then(x=>x.filter((i) => getUserById(id).then(x=> x.friends.includes(i.id))))
+  return data;
 }
 
-export function addUser(user: User)
+export async function addUser(user: User)
 {
-  users.total = users.users.length;
-  let temp:User = {id:user.id,firstName:user.firstName,lastName:user.lastName,username:user.username,email:user.email,birthDate:user.birthDate,image:user.image,password:user.password,imperialUnits:true,age:0,admin:false, friends:[]};
+  let temp:User = {id:user.id,firstName:user.firstName,lastName:user.lastName,username:user.username,email:user.email,birthDate:user.birthDate,image:user.image,password:user.password,unitSystem:'imperial',age:0,role:'user', friends:[], creationTimestamp:Date.now()};
   temp.birthDate = new Date(Date.parse(user.birthDate as string)).toJSON().substring(0,10);
   
   // Age Calculation
@@ -51,18 +47,24 @@ export function addUser(user: User)
   {
     temp.image = 'client/public/no-profile-image.png'
   }
-  temp.imperialUnits = (user.imperialUnits || false) as boolean;
-  temp.admin = false;
+  temp.unitSystem = (user.unitSystem || 'imperial');
+  temp.role = 'user';
   temp.friends = [];
-  users.users.push(temp);
+  api<User>('users/add', temp);
 }
 
-export function deleteUser(uid: number)
+export async function editUser(uid: number)
 {
-  if(users.users.find(u => u.id === uid)?.admin || userRef().value.id === uid)
-  {
-    return; //Can't attempt to delete ourselves, or other admins, through the admin view anyways.
-  }
-    users.users.sort((i)=> i.id)
-    users.users.splice(users.users.findIndex((i)=>i.id === uid),1)
+
 }
+
+export async function deleteUser(uid: number)
+{
+  //TODO: Once session validation is in-place, attempt to allow this.
+}
+
+export async function search(q:string) {
+  const data = await apiQuery<User[]>('users/search',q)
+  return data;
+}
+
