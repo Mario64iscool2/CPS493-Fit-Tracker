@@ -1,10 +1,10 @@
 import { type DataEnvelope, type DataListEnvelope } from "./transportTypes";
-import { config } from "dotenv";
+
 
 export type Method = "GET" | "PUT" | "POST" | "DELETE" | "PATCH"
 
 
-export const API_ROOT = config().parsed?.API_ROOT
+export const API_ROOT = import.meta.env.VITE_API_ROOT;
 
 export function rest(url: string, data?:unknown, method?: Method) {
     return fetch(url, {
