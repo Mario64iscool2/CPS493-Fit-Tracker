@@ -28,7 +28,7 @@ app.use(express.json())
 .use('/api/v1/users',users)
 .use('/api/v1/workouts',workouts)
 .use('/api/v1/auth',auth)
-.use((req,res, next)=> {
+.use((req,res, next) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'))
     next();
 })

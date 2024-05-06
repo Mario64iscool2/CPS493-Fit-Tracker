@@ -53,14 +53,16 @@ export async function addUser(user: User)
   api<User>('users/add', temp);
 }
 
-export async function editUser(uid: number)
+export async function editUser(uid: number, data:User)
 {
-
+    const dat = await api<User>(`users/${uid}`,data,'PATCH');
+    return dat;
 }
 
-export async function deleteUser(uid: number)
+export async function deleteUser(uid: number, sess: User)
 {
-  //TODO: Once session validation is in-place, attempt to allow this.
+  const dat = await api<User>('users/delete',{uid, sess}, 'DELETE');
+  return dat;
 }
 
 export async function search(q:string) {

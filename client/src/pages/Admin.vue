@@ -47,7 +47,7 @@ doUpdate()
                             <td class="td" style="width:fit-content; max-width: 20rem;">{{ user.friends }}</td>
                             <td class="td _6rem">{{ user.role }}</td>
                             <td class="td">{{ postTimeDifference(user.creationTimestamp) }}</td>
-                            <td class="td is-narrow"><button @click="deleteUser(user.id)" class="button is-danger is-small is-rounded" :disabled="user.id===userRef().value.id || user.role === 'admin'">Delete</button></td>
+                            <td class="td is-narrow"><button @click="deleteUser(user.id, userRef().value)" class="button is-danger is-small is-rounded" :disabled="user.id===userRef().value.id || user.role === 'admin'">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>

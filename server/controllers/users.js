@@ -67,6 +67,7 @@ app
     .patch('/:id', (req, res, next) => {
         const user = req.body;
         user.id = req.params.id;
+
         const result = users.update(user);
 
         /** @type { UserDataEnvelope } */
@@ -79,9 +80,38 @@ app
     })
     .delete('/:id', (req, res, next) => {
         const id = req.params.id;
-        users.remove(+id).then(result => {
-
-        }).catch();
+        const body = req.body;
+        if(body.uid === body.sess.id === id)
+            {
+                users.remove(+id).then(result => {
+                    if(result)
+                        {
+                            const response = {
+                                data:result,
+                                isSuccess:true
+                            }
+                            res.send(response);
+                        }
+                }).catch(()=>
+                    res.status(501).send({data:null,isSuccess:false,message:"operation failed"})
+                );
+            }
+        users.getFull(+body.uid).then(user => {
+            if(user.role === 'admin' === body.sess.role)
+                {
+                    users.remove(+id).then(result => {
+                        if(result)
+                            {
+                                const response = {
+                                    data: result,
+                                    isSuccess:true
+                                }
+                                res.send(response);
+                            }
+                    }).catch(()=>res.status(501).send({data:null,isSuccess:false,message:"operation failed"}))
+                }
+        })
+        
 
 
         /** @type { UserDataEnvelope } */
