@@ -1,25 +1,21 @@
 {
   "scripts": {
     "dev": "nodemon server/index.js --watch server/",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "cd client; npm i; npm run build; cd ..; npm i",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "css-build": "node-sass --omit-source-map-url src/sass/mystyles.scss src/assets/mystyles.css",
     "css-watch": "npm run css-build -- --watch",
-    "start": "npm run dev"
+    "start": "node server/index.js"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "bulma": "^1.0.0",
     "config": "^3.3.11",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
-    "express": "^4.18.3",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.5.0",
-    "nodemon": "^3.1.0",
-    "redis": "^4.6.13",
-    "vue": "^3.4.19"
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
