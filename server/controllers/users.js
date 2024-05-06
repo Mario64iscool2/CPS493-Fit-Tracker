@@ -49,7 +49,7 @@ app
     .get('/:id/friends', (req, res, next) => {
         const id = req.params.id;
         users.get(+id).then(u => {
-            res.send({data: u.friends, isSuccess: true});    
+            res.send({ data: u.friends, isSuccess: true });
         })
     })
     .post('/', (req, res, next) => {
@@ -78,62 +78,48 @@ app
 
         res.send(response);
     })
-    .post('/:id/friends', (req, res, next)=>{
+    .post('/:id/friends', (req, res, next) => {
         const id = req.params.id;
         const u = req.query.u;
         users.get(+id).then(user => {
             user.friends.includes(+u) ?
-            user.friends.pop(+u) : user.friends.push(+u);
+                user.friends.pop(+u) : user.friends.push(+u);
             users.update(user);
             res.send({
                 data: user.friends.includes(+u),
-                isSuccess:true
+                isSuccess: true
             })
         })
     })
     .delete('/:id', (req, res, next) => {
         const id = req.params.id;
         const body = req.body;
-        if(body.uid === body.sess.id === id)
-            {
-                users.remove(+id).then(result => {
-                    if(result)
-                        {
-                            const response = {
-                                data:result,
-                                isSuccess:true
-                            }
-                            res.send(response);
-                        }
-                }).catch(()=>
-                    res.status(501).send({data:null,isSuccess:false,message:"operation failed"})
-                );
-            }
-        users.getFull(+body.uid).then(user => {
-            if(user.role === 'admin' === body.sess.role)
-                {
-                    users.remove(+id).then(result => {
-                        if(result)
-                            {
-                                const response = {
-                                    data: result,
-                                    isSuccess:true
-                                }
-                                res.send(response);
-                            }
-                    }).catch(()=>res.status(501).send({data:null,isSuccess:false,message:"operation failed"}))
+        if (body.uid === body.sess.id && body.sess.id === id) {
+            users.remove(+id).then(result => {
+                if (result) {
+                    const response = {
+                        data: result,
+                        isSuccess: true
+                    }
+                    res.send(response);
                 }
-        })
-        
-
-
-        /** @type { UserDataEnvelope } */
-        const response = {
-            data: result,
-            isSuccess: true,
+            }).catch(() =>
+                res.status(501).send({ data: null, isSuccess: false, message: "operation failed" })
+            );
         }
-
-        res.send(response);
+        users.getFull(+body.uid).then(user => {
+            if (user.role === 'admin' && user.role === body.sess.role) {
+                users.remove(+id).then(result => {
+                    if (result) {
+                        const response = {
+                            data: result,
+                            isSuccess: true
+                        }
+                        res.send(response);
+                    }
+                }).catch(() => res.status(501).send({ data: null, isSuccess: false, message: "operation failed" }))
+            }
+        })
     })
 
 
