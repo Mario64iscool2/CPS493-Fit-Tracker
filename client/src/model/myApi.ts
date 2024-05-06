@@ -3,7 +3,7 @@ import { type DataEnvelope, type DataListEnvelope } from "./transportTypes";
 export type Method = "GET" | "PUT" | "POST" | "DELETE"
 
 
-export const API_ROOT = 'http://localhost:3000/api/v1'
+export const API_ROOT = 'https://cps493-fit-tracker.onrender.com/api/v1'
 
 export function rest(url: string, data?:unknown, method?: Method) {
     return fetch(url, {
