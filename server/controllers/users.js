@@ -49,7 +49,7 @@ app
     .get('/:id/friends', (req, res, next) => {
         const id = req.params.id;
         users.get(+id).then(u => {
-            
+            res.send({data: u.friends, isSuccess: true});    
         })
     })
     .post('/', (req, res, next) => {
@@ -77,6 +77,19 @@ app
         }
 
         res.send(response);
+    })
+    .post('/:id/friends', (req, res, next)=>{
+        const id = req.params.id;
+        const u = req.query.u;
+        users.get(+id).then(user => {
+            user.friends.includes(+u) ?
+            user.friends.pop(+u) : user.friends.push(+u);
+            users.update(user);
+            res.send({
+                data: user.friends.includes(+u),
+                isSuccess:true
+            })
+        })
     })
     .delete('/:id', (req, res, next) => {
         const id = req.params.id;

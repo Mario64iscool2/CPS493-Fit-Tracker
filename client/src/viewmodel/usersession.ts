@@ -37,9 +37,10 @@ export async function login(u: { username: string, password: string }): Promise<
     return resp;
 }
 
-export async function befriendUser(id:number)
+export async function befriendUser(id: number)
 {
-    
+    const resp = await api<boolean>(`users/${userRef().value.id}?friend=${id}`)
+    return resp;
 }
 
 export function api<T>(action: string, data?: unknown, method?: Method) {

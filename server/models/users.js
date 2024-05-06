@@ -32,6 +32,8 @@ class User {
         this.role = r;
         /** @type {string} */
         this.birthday = b;
+        /** @type {number[]} */
+        this.friends = [];
         /** @type {number} */
         this.creationTimestamp = c;
     }
