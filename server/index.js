@@ -45,5 +45,4 @@ app.use((err, req, res, next) => {
 
 
 app.listen(PORT, () => {
-    console.log("Listening to port %d on localhost",PORT)
-})
+    console.log("Listening to port %d",PORT)})
