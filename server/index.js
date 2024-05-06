@@ -12,9 +12,10 @@ const workouts = require('./controllers/workouts');
 const app = express();
 const PORT = config.get('port');
 
+app.use(express.static('client/dist'))
+
 app.use(express.json())
 
-app.use(express.static('client/dist'))
 
 .use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +28,9 @@ app.use(express.static('client/dist'))
 .use('/api/v1/users',users)
 .use('/api/v1/workouts',workouts)
 .use('/api/v1/auth',auth)
+.use((req,res)=> {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+})
 app.use((err, req, res, next) => {
     console.error(err);
     /** @type {ErrorDataEnvelope} */
@@ -38,9 +42,6 @@ app.use((err, req, res, next) => {
     res.status(500).send(results);
 })
 
-app.use((req,res)=> {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
-})
 
 app.listen(PORT, () => {
     console.log("Listening to port %d on localhost",PORT)
