@@ -49,7 +49,12 @@ app
     .get('/:id/friends', (req, res, next) => {
         const id = req.params.id;
         users.get(+id).then(u => {
-            res.send({ data: u.friends, isSuccess: true });
+            const friends = []
+            for (i in u.friends)
+                {
+                    friends.push(users.get(i));
+                }
+            res.send({ data: friends, isSuccess: true });
         })
     })
     .post('/', (req, res, next) => {

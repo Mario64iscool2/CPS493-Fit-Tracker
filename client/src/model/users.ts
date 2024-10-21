@@ -29,8 +29,8 @@ export async function getUserById(a: number) {
 
 export async function getFriendsOf(id: number): Promise<User[]>
 {
-  const data = await getAll().then(x=>x.filter((i) => getUserById(id).then(x=> x.friends.includes(i.id))))
-  return data;
+  const data = await api<User[]>(`users/${id}/friends`);
+  return data.data;
 }
 
 export async function addUser(user: User)
